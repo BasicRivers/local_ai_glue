@@ -73,7 +73,6 @@ class audio_recorder:
                 self.silence_callbacks_count+=1
                 
             # check if the array reached a certain minimum length to be allowed to be forwareded to the queue
-            # if len(self.audio_arr)/self.samplerate > self.min_rec_len: # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             if len(self.audio_arr) >= self.min_rec_len:
                 # check if there has been long enough pause of speech by converting callbacks count into seconds and comparing with silence duration object
                 if self.silence_callbacks_count*self.callback_interval >= self.silence_len:
@@ -91,8 +90,6 @@ class audio_recorder:
             
             while not self.status_flags["stop"]:
                 sd.sleep(200)
-        
-            # self.forward_array_to_q() # !!!! maybe this is the line is what bypasses the stop and forces a transcribe after closing? consider getting rid of it after testing
             sd.stop()
             print("...Recording stopped.")
             
